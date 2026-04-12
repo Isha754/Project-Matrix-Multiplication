@@ -6,25 +6,6 @@ This project is about implementing and comparing different matrix multiplication
 
 The main goal is to first write the normal matrix multiplication algorithm (GEMM), then study and implement faster algorithms such as Strassen and Coppersmith–Winograd, and finally compare their performance.
 
----
-
-## Problem Description
-
-Matrix multiplication is defined as:
-
-- Matrix **A** has size `M × N`
-- Matrix **B** has size `N × K`
-- Result matrix **C** has size `M × K`
-
-The formula is:
-
-C = A × B
-
-and each element in `C` is calculated by:
-
-C[i][j] = sum of A[i][k] * B[k][j]
-
-In this project, the matrices are generated randomly and the program measures how long each algorithm takes.
 
 ---
 
