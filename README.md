@@ -11,7 +11,7 @@ The main goal is to first write the normal matrix multiplication algorithm (GEMM
 
 ## Tasks
 
-### Task 1
+### Task 1:
 
 Implement the basic matrix multiplication in C.
 
@@ -22,7 +22,7 @@ Requirements:
 - Compute matrix `C`
 - Output the execution time
 
-### Task 2
+### Task 2:
 
 Study and implement optimized matrix multiplication algorithms.
 
@@ -66,11 +66,17 @@ It is mostly important in theory, because the real implementation is very comple
 
 ---
 
-## Verification
 
-To make sure the optimized algorithms are correct, the output matrix should be compared with the result from the normal GEMM algorithm.
+## How to Compile
 
-If floating-point numbers are used, two values can be treated as equal when:
+To compile this project, open a terminal in the project folder and use gcc.
 
-```c
-fabs(a - b) < 1e-9
+Example:
+
+gcc -O2 -o matrix_mul main.c gemm.c strassen.c coppersmith_winograd.c utils.c -lm
+
+## How to Run
+
+Run the program like this:
+
+./matrix_mul M N Kv
