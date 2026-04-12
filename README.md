@@ -6,10 +6,9 @@ This project is about implementing and comparing different matrix multiplication
 
 The main goal is to first write the normal matrix multiplication algorithm (GEMM), then study and implement faster algorithms such as Strassen and Coppersmith–Winograd, and finally compare their performance.
 
-
 ---
 
-## Tasks
+## Tasks :pencil:
 
 ### Task 1:
 
@@ -22,7 +21,7 @@ Requirements:
 - Compute matrix `C`
 - Output the execution time
 
-### Task 2:
+ ### Task 2:
 
 Study and implement optimized matrix multiplication algorithms.
 
@@ -72,11 +71,13 @@ It is mostly important in theory, because the real implementation is very comple
 To compile this project, open a terminal in the project folder and use gcc.
 
 Example:
-
+```
 gcc -O2 -o matrix_mul main.c gemm.c strassen.c coppersmith_winograd.c utils.c -lm
+```
 
 ## How to Run
 
 Run the program like this:
-
+```
 ./matrix_mul M N K
+```
