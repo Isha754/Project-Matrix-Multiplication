@@ -1,144 +1,95 @@
-# Matrix Multiplication Optimization in C
+# Matrix Multiplication in C
 
-## Overview
+## Introduction
 
-This project implements and compares multiple matrix multiplication algorithms in C, based on the assignment requirements.
+This project is about implementing and comparing different matrix multiplication algorithms in C.
 
-The goal is to:
+The main goal is to first write the normal matrix multiplication algorithm (GEMM), then study and implement faster algorithms such as Strassen and Coppersmith–Winograd, and finally compare their performance.
 
-- Implement **general matrix multiplication (GEMM)** in C
-- Study and implement **Strassen’s algorithm**
-- Study and implement **Coppersmith–Winograd-related optimization ideas**
-- Verify correctness of optimized results against the baseline GEMM result
-- Measure and compare execution times for different matrix sizes
+---
+
+## Problem Description
 
 Matrix multiplication is defined as:
 
-\[
-C = AB
-\]
+- Matrix **A** has size `M × N`
+- Matrix **B** has size `N × K`
+- Result matrix **C** has size `M × K`
 
-where:
+The formula is:
 
-- **A** is an `M × N` matrix
-- **B** is an `N × K` matrix
-- **C** is the resulting `M × K` matrix
+C = A × B
 
-Each element is computed as:
+and each element in `C` is calculated by:
 
-\[
-C_{m,k} = \sum_{n=1}^{N} A_{m,n} B_{n,k}
-\]
+C[i][j] = sum of A[i][k] * B[k][j]
+
+In this project, the matrices are generated randomly and the program measures how long each algorithm takes.
 
 ---
 
-## Assignment Tasks
+## Tasks
 
-### Task 1: Basic Matrix Multiplication (30 points)
+### Task 1
 
-Implement standard matrix multiplication in C.
+Implement the basic matrix multiplication in C.
 
-#### Requirements
+Requirements:
+- Input three integers: `M`, `N`, and `K`
+- Matrix sizes are from `512` to `2048`
+- Randomly generate matrix `A (M×N)` and matrix `B (N×K)`
+- Compute matrix `C`
+- Output the execution time
 
-- Input: three integers `M`, `N`, and `K` (`512 ~ 2048`)
-- Randomly generate:
-  - matrix `A (M × N)`
-  - matrix `B (N × K)`
-- Compute:
-  - matrix `C (M × K)`
-- Output:
-  - the time taken for the matrix multiplication
+### Task 2
 
----
+Study and implement optimized matrix multiplication algorithms.
 
-### Task 2: Algorithmic Optimization (70 points)
+Algorithms to include:
+- Strassen algorithm
+- Coppersmith–Winograd algorithm
 
-In addition to hardware-based optimization, this task focuses on algorithmic improvements to matrix multiplication.
-
-The following optimized algorithms are studied and implemented:
-
-- **Strassen Algorithm**
-- **Coppersmith–Winograd Algorithm** (or its practical adaptation / related optimized approach)
-
-#### Requirements
-
-- Learn and describe both algorithms independently
-- Explain how each optimization reduces computational complexity
-- Optimize the source code using these algorithms
-- Compare their performance with standard GEMM
-- Include a **verification function** to ensure optimized results match the baseline result from Task 1
-
-#### Verification Rule
-
-If matrix elements are floating-point numbers, two values `a` and `b` are considered equal if:
-
-\[
-|a - b| < \varepsilon
-\]
-
-where `ε` is a very small threshold such as `10^-9`.
-
-> Note: The time used by the verification function should **not** be included in the algorithm runtime.
+Requirements:
+- Explain the idea of both algorithms
+- Optimize the matrix multiplication code using them
+- Compare the runtime with normal GEMM
+- Add a verification function to check whether the results are correct
 
 ---
 
-## Algorithms Implemented
+## Algorithms
 
-### 1. GEMM (Naive Matrix Multiplication)
+### 1. GEMM
 
-This is the standard triple-loop implementation of matrix multiplication.
+This is the normal matrix multiplication using 3 nested loops.
 
-#### Time Complexity
+**Time complexity:** `O(n^3)`
 
-- **O(n³)**
-
-#### Characteristics
-
-- Simple and easy to implement
-- Used as the **baseline** for correctness and performance comparison
-
----
+It is simple and easy to implement, but it becomes slow for large matrices.
 
 ### 2. Strassen Algorithm
 
-Strassen’s algorithm reduces the number of recursive multiplications needed for square matrix multiplication.
+Strassen’s algorithm reduces the number of multiplications in recursive matrix multiplication.
 
-Instead of performing 8 recursive multiplications on submatrices, it performs only 7, reducing the asymptotic complexity.
+**Time complexity:** about `O(n^2.807)`
 
-#### Time Complexity
-
-- **O(n^2.807)**
-
-#### Advantages
-
-- Faster than naive multiplication for sufficiently large matrices
-- Demonstrates an important theoretical breakthrough in matrix multiplication
-
-#### Notes
-
-- Works best for square matrices whose sizes are powers of 2
-- Non-power-of-2 matrices typically require padding
-- For small submatrices, switching back to naive GEMM is often faster in practice
-
----
+It is faster than the naive method for large enough matrices, but the implementation is more complicated.
 
 ### 3. Coppersmith–Winograd Algorithm
 
-The Coppersmith–Winograd algorithm further improves the theoretical complexity of matrix multiplication.
+This algorithm improves the theoretical time complexity even more.
 
-#### Time Complexity
+**Time complexity:** about `O(n^2.3727)`
 
-- **O(n^2.3727)** (theoretical bound)
+It is mostly important in theory, because the real implementation is very complex. In practice, many students use a simplified version or explain the method and compare it conceptually.
 
-#### Advantages
+---
 
-- Better asymptotic complexity than Strassen
-- Historically important in the development of fast matrix multiplication theory
+## Verification
 
-#### Notes
+To make sure the optimized algorithms are correct, the output matrix should be compared with the result from the normal GEMM algorithm.
 
-- Extremely complex to implement directly in practical systems
-- Often more important theoretically than practically
-- In many coursework implementations, students discuss the method in detail and may implement a simplified or related practical optimization instead
+If floating-point numbers are used, two values can be treated as equal when:
 
-> If your code uses a simplified version, Winograd variant, or practical approximation instead of the full theoretical Coppersmith–Winograd algorithm, clearly state that in your report.
+```c
+fabs(a - b) < 1e-9
