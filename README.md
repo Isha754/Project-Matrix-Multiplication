@@ -79,4 +79,4 @@ gcc -O2 -o matrix_mul main.c gemm.c strassen.c coppersmith_winograd.c utils.c -l
 
 Run the program like this:
 
-./matrix_mul M N Kv
+./matrix_mul M N K
